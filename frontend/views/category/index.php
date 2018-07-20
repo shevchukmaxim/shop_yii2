@@ -3,8 +3,6 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
-
-$this->title = 'Интернет-магазин';
 ?>
 <section id="slider"><!--slider-->
     <div class="container">
@@ -115,7 +113,7 @@ $this->title = 'Интернет-магазин';
                 <?php if (!empty($hits)) :?>
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <?php foreach ($hits as $hit): ?>
+                    <?php $i = 0; foreach ($hits as $hit): ?>
                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
@@ -140,6 +138,10 @@ $this->title = 'Интернет-магазин';
                             </div>
                         </div>
                     </div>
+                        <?php $i++; ?>
+                        <?php if ($i % 3 == 0): ?>
+                            <div class="row"></div>
+                        <?php endif; ?>
                     <? endforeach; ?>
                 </div><!--features_items-->
                 <? endif; ?>
