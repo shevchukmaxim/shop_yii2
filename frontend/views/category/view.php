@@ -6,6 +6,7 @@
  * Time: 21:16
  */
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
 ?>
 <section id="advertisement">
@@ -82,19 +83,18 @@ use yii\helpers\Html;
                             <div class="row"></div>
                         <?php endif; ?>
                         <?php endforeach; ?>
+                        <div class="row"></div>
+                        <?php
+                            echo LinkPager::widget([
+                                'pagination' => $pages,
+                            ]);
+                        ?>
                     <?php endif; ?>
-
-                    <div class="row"></div>
-                    <ul class="pagination">
-                        <li class="active"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">&raquo;</a></li>
-                    </ul>
 
                 </div><!--features_items-->
 
             </div>
+
         </div>
     </div>
 </section>
