@@ -877,6 +877,10 @@ h2.title {
   position: relative;
 }
 
+.product-name {
+  color: #696763;
+}
+
 .new, .sale {
   position: absolute;
   top: 0;

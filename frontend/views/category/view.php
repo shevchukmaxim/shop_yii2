@@ -66,9 +66,15 @@ use yii\widgets\LinkPager;
                                     <div class="productinfo text-center">
                                         <?= Html::img("@web/images/products/{$product->img}", ['alt'=> $product->name]); ?>
                                         <h2>$<?= $product->price ?></h2>
-                                        <p><?= $product->name ?></p>
+                                        <p><a class="product-name" href="<?= yii\helpers\Url::to(['product/view', 'id' => $product->id]) ?>"><?= $product->name ?></a></p>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
+                                    <?php if ($product->new == 1) :?>
+                                        <?= Html::img("@web/images/home/new.png", ['alt'=> 'Новинка', 'class' => 'new']); ?>
+                                    <? endif; ?>
+                                    <?php if ($product->sale == 1) :?>
+                                        <?= Html::img("@web/images/home/sale.png", ['alt'=> 'Распродажа', 'class' => 'sale']); ?>
+                                    <? endif; ?>
                                 </div>
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">

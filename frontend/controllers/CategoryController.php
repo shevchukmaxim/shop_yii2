@@ -27,7 +27,6 @@ class CategoryController extends AppController {
     public function actionView($id)
     {
         $id = Yii::$app->request->get('id');
-//        $products = Product::find()->where(['category_id' => $id])->all();
         $query = Product::find()->where(['category_id' => $id]);
         $count = $query->count();
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
