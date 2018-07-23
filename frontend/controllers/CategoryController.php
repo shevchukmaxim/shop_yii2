@@ -13,6 +13,7 @@ use common\models\Category;
 use common\models\Product;
 use Yii;
 use yii\data\Pagination;
+use yii\web\HttpException;
 
 class CategoryController extends AppController {
 
@@ -27,6 +28,13 @@ class CategoryController extends AppController {
     public function actionView($id)
     {
         $id = Yii::$app->request->get('id');
+
+        $category = Category::findOne($id);
+
+        if (empty($category)) {
+            throw new HttpException(404, 'Данная категория не найдена');
+        }
+
         $query = Product::find()->where(['category_id' => $id]);
         $count = $query->count();
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
@@ -34,7 +42,6 @@ class CategoryController extends AppController {
             ->limit($pages->limit)
             ->all();
 
-        $category = Category::findOne($id);
         $this->setMeta('Интернет-магазин | ' . $category->name, $category->keywords, $category->description);
 
         return $this->render('view', compact('products', 'pages', 'category'));
