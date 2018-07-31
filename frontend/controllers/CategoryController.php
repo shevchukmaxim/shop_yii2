@@ -27,8 +27,6 @@ class CategoryController extends AppController {
 
     public function actionView($id)
     {
-        $id = Yii::$app->request->get('id');
-
         $category = Category::findOne($id);
 
         if (empty($category)) {
@@ -36,8 +34,7 @@ class CategoryController extends AppController {
         }
 
         $query = Product::find()->where(['category_id' => $id]);
-        $count = $query->count();
-        $pages = new Pagination(['totalCount' => $count, 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
@@ -45,5 +42,22 @@ class CategoryController extends AppController {
         $this->setMeta('Интернет-магазин | ' . $category->name, $category->keywords, $category->description);
 
         return $this->render('view', compact('products', 'pages', 'category'));
+    }
+
+    public function actionSearch()
+    {
+        $search = trim(Yii::$app->request->get('search'));
+        if (!$search) {
+            return $this->render('search', compact('search'));
+        }
+        $query = Product::find()->andFilterWhere(['like', 'name', $search]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);
+        $products = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        $this->setMeta('Результаты поиска - ' . $search);
+
+        return $this->render('search', compact('products', 'pages', 'search'));
     }
 }
