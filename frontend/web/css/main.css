@@ -2546,4 +2546,7 @@ h2.title {
   color: #FE980F;
 }
 
+.del-item {
+  cursor: pointer;
+}
 
