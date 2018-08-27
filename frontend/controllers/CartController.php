@@ -8,6 +8,8 @@
 
 namespace frontend\controllers;
 use frontend\models\Cart;
+use frontend\models\Order;
+use frontend\models\OrderItems;
 use common\models\Product;
 use Yii;
 
@@ -77,6 +79,12 @@ class CartController extends AppController
         $session = Yii::$app->session;
         $session->open();
 
-        return $this->render('view', compact('session'));
+        $this->setMeta('Оформление заказа');
+        $order = new Order();
+        if ($order->load(Yii::$app->request->post())) {
+            debug(Yii::$app->request->post());
+        }
+
+        return $this->render('view', compact('session', 'order'));
     }
 }
