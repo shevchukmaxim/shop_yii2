@@ -4,6 +4,20 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 ?>
 <div class="container">
+    <?php if (Yii::$app->session->hasFlash('success')): ?>
+        <div class="alert alert-success alert-dismissble" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <?php echo Yii::$app->session->getFlash('success'); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (Yii::$app->session->hasFlash('error')): ?>
+        <div class="alert alert-danger alert-dismissble" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <?php echo Yii::$app->session->getFlash('error'); ?>
+        </div>
+    <?php endif; ?>
+
     <?php if (!empty($session['cart'])): ?>
         <div class="table-responsive">
             <table class="table table-hover table-striped">
@@ -28,11 +42,11 @@ use yii\widgets\ActiveForm;
                     </tr>
                 <?php endforeach; ?>
                 <tr>
-                    <td colspan="4">Количество товара: </td>
+                    <td colspan="5">Количество товара: </td>
                     <td><?= $session['cart.amount']?></td>
                 </tr>
                 <tr>
-                    <td colspan="4">На сумму: </td>
+                    <td colspan="5">На сумму: </td>
                     <td><?= $session['cart.sum']?></td>
                 </tr>
                 </tbody>

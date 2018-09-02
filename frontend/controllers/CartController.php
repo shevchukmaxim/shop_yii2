@@ -82,9 +82,34 @@ class CartController extends AppController
         $this->setMeta('Оформление заказа');
         $order = new Order();
         if ($order->load(Yii::$app->request->post())) {
-            debug(Yii::$app->request->post());
+            $order->amount = $session['cart.amount'];
+            $order->sum = $session['cart.sum'];
+            if ($order->save()) {
+                $this->saveOrderItems($session['cart'], $order->id);
+                Yii::$app->session->setFlash('success', 'Ваш заказ принят. Менеджер вскоре свяжется с вами.');
+                $session->remove('cart');
+                $session->remove('cart.amount');
+                $session->remove('cart.sum');
+                return $this->refresh();
+            }else {
+                Yii::$app->session->setFlash('error', 'Ошибка. Заказ не удался. Попробуйте снова.');
+            }
         }
 
         return $this->render('view', compact('session', 'order'));
+    }
+
+    protected function saveOrderItems($items, $order_id)
+    {
+        foreach ($items as $id => $item) {
+            $order_items = new OrderItems();
+            $order_items->order_id = $order_id;
+            $order_items->product_id = $id;
+            $order_items->name = $item['name'];
+            $order_items->price = $item['price'];
+            $order_items->amount_item = $item['amount'];
+            $order_items->sum_item = $item['amount'] * $item['price'];
+            $order_items->save();
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "order_items".
@@ -16,7 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int $amount_item
  * @property double $sum_item
  */
-class OrderItems extends \yii\db\ActiveRecord
+class OrderItems extends ActiveRecord
 {
     /**
      * {@inheritdoc}
