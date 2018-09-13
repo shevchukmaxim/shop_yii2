@@ -45,7 +45,7 @@ return [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
                 'username' => 'webmaxsup@gmail.com',
-                'password' => 'gaz77d3h',
+                'password' => 'password',
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
